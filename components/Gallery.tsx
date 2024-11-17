@@ -1,11 +1,9 @@
 'use client'
 
-import { useState } from 'react'
 import Image from 'next/image'
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog"
 
 export default function Gallery() {
-  const [selectedImage, setSelectedImage] = useState(null)
 
   const images = [
     { src: '/images/corporate-event.jpg', alt: 'אירוע עסקי מרשים' },
