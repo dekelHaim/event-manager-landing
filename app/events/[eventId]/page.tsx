@@ -3,6 +3,7 @@
 import { useState } from "react"
 import Image from "next/image"
 import { ChevronLeft, ChevronRight } from "lucide-react"
+import Link from "next/link"
 
 const eventData = {
   weddings: {
@@ -53,7 +54,7 @@ export default function EventPage() {
         <div className="relative flex items-center">
           <button
             onClick={handlePrev}
-            className="absolute left-0 p-4 bg-gray-200 hover:bg-gray-300 rounded-full shadow-md z-10"
+            className="absolute left-0 p-4 bg-gray-300 hover:bg-gray-500 rounded-full shadow-md z-10"
           >
             <ChevronLeft size={24} />
           </button>
@@ -61,10 +62,9 @@ export default function EventPage() {
             <Image
               src={currentEvent.image}
               alt={currentEvent.title}
-              width={500}
+              width={600}
               height={400}
               className="rounded-lg shadow-lg"
-              style={{ position: 'relative', left: '-100px' }}  
             />
             <div>
               <p className="text-lg text-gray-700 mb-6">{currentEvent.description}</p>
@@ -74,16 +74,23 @@ export default function EventPage() {
                   <li key={index}>{service}</li>
                 ))}
               </ul>
-              <button className="mt-6 px-6 py-3 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700">
-                צור קשר
-              </button>
+              <div className="flex justify-center gap-4">
+                <Link href="/#contact" className="hover:text-primary transition-colors">
+                  <button className="mt-6 w-48 px-6 py-3 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700">
+                    צור קשר
+                  </button>
+                </Link>
+                <Link href="/#events" className="hover:text-primary transition-colors">
+                  <button className="mt-6 w-48 px-6 py-3 bg-red-600 text-white rounded-lg shadow hover:bg-red-700">
+                    חזור
+                  </button>
+                </Link>
+              </div>
             </div>
           </div>
-          {/* Right button with margin adjustment */}
           <button
             onClick={handleNext}
-            className="absolute right-4 p-4 bg-gray-200 hover:bg-gray-300 rounded-full shadow-md z-10"
-          >
+            className="absolute right-0 p-4 bg-gray-300 hover:bg-gray-500 rounded-full shadow-md z-10">
             <ChevronRight size={24} />
           </button>
         </div>
