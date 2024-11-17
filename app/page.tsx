@@ -1,22 +1,25 @@
 'use client'
 
 import { useEffect } from 'react'
-import Header from './components/Header'
-import About from './components/About'
-import Events from './components/Events'
-import Gallery from './components/Gallery'
-import Testimonials from './components/Testimonials'
-import Contact from './components/Contact'
+import Header from '../components/Header'
+import About from '../components/About'
+import Events from '../components/Events'
+import Gallery from '../components/Gallery'
+import Testimonials from '../components/Testimonials'
+import Contact from '../components/Contact'
 
 export default function LandingPage() {
   useEffect(() => {
     // Smooth scroll implementation
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
+      anchor.addEventListener('click', (e) => {
         e.preventDefault();
-        document.querySelector(this.getAttribute('href')).scrollIntoView({
-          behavior: 'smooth'
-        });
+        const targetId = anchor.getAttribute('href');
+        if (targetId) {
+          document.querySelector(targetId)?.scrollIntoView({
+            behavior: 'smooth'
+          });
+        }
       });
     });
   }, []);
