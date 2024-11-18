@@ -8,22 +8,33 @@ import Gallery from '../components/Gallery'
 import Testimonials from '../components/Testimonials'
 import Contact from '../components/Contact'
 
+
+
 export default function LandingPage() {
   useEffect(() => {
-    // Smooth scroll implementation
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    // Smooth scroll only for in-page anchors
+    document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
       anchor.addEventListener('click', (e) => {
         e.preventDefault();
         const targetId = anchor.getAttribute('href');
         if (targetId) {
           document.querySelector(targetId)?.scrollIntoView({
-            behavior: 'smooth'
+            behavior: 'smooth',
           });
         }
       });
     });
+  
+    return () => {
+      // Clean up event listeners
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.removeEventListener('click', () => {});
+      });
+    };
   }, []);
+  
 
+// need to add <AccessibilityMenu />
   return (
     <div dir="rtl" className="font-heebo bg-cream text-gray-800">
       <Header />

@@ -1,9 +1,10 @@
 'use client'
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Image from "next/image"
-import { ChevronLeft, ChevronRight } from "lucide-react"
+import { ChevronLeft, ChevronRight } from 'lucide-react'
 import Link from "next/link"
+import { useRouter } from 'next/navigation'
 
 const eventData = {
   weddings: {
@@ -32,20 +33,34 @@ const eventData = {
 const eventKeys = Object.keys(eventData) as (keyof typeof eventData)[]
 
 export default function EventPage() {
+  const router = useRouter()
   const [currentEventIndex, setCurrentEventIndex] = useState(0)
   const currentEventKey = eventKeys[currentEventIndex]
   const currentEvent = eventData[currentEventKey]
 
+  useEffect(() => {
+    const path = window.location.pathname
+    const eventId = path.split('/').pop()
+    const index = eventKeys.findIndex(key => key === eventId)
+    if (index !== -1) {
+      setCurrentEventIndex(index)
+    }
+  }, [])
+
   const handleNext = () => {
-    setCurrentEventIndex((prev) => (prev + 1) % eventKeys.length)
+    const nextIndex = (currentEventIndex + 1) % eventKeys.length
+    setCurrentEventIndex(nextIndex)
+    router.push(`/events/${eventKeys[nextIndex]}`)
   }
 
   const handlePrev = () => {
-    setCurrentEventIndex((prev) => (prev - 1 + eventKeys.length) % eventKeys.length)
+    const prevIndex = (currentEventIndex - 1 + eventKeys.length) % eventKeys.length
+    setCurrentEventIndex(prevIndex)
+    router.push(`/events/${eventKeys[prevIndex]}`)
   }
 
   return (
-    <section className="py-20 bg-gray-50">
+    <section className="py-20 bg-gray-50 mt-16"> {/* Added mt-16 to account for the fixed header */}
       <div className="container mx-auto px-6">
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold text-gray-800">{currentEvent.title}</h1>

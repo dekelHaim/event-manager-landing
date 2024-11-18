@@ -1,3 +1,5 @@
+'use client';
+
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Cake, GlassWater, Briefcase } from "lucide-react"
 import Link from "next/link"
